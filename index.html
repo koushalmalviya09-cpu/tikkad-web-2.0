@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b85f43">
+  <meta name="description" content="Khandwa Tikkad Hotel — authentic tikka, tikkad and North Indian flavours in Khandwa.">
+  <title>Khandwa Tikkad Hotel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Khandwa Tikkad Hotel home">
+      <span class="brand-mark">KTH</span>
+      <span>KHANDWA TIKKAD HOTEL</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span>
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <a href="/menu">Menu</a>
+      <a href="#story">About Us</a>
+      <a href="#visit">Visit</a>
+      <a class="nav-book" href="#reserve">Book a Table</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Authentic taste · Khandwa</p>
+        <h1>Hot, smoky,<br><em>made for you.</em></h1>
+        <p class="hero-intro">Fresh tikkad, sizzling tikkas and Indian favourites prepared with traditional masalas and plenty of flavour.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="/menu">Explore menu</a>
+          <button class="text-link nfc-link" type="button" id="nfc-read">Tap NFC <span>⌁</span></button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=1200&q=85" alt="Indian food freshly prepared with spices">
+        <div class="hours-card">
+          <span>OPEN TODAY</span>
+          <strong>11:00 AM — 11:00 PM</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-promo">
+      <p class="eyebrow">From our kitchen</p>
+      <h2>Good food deserves<br><em>its own moment.</em></h2>
+      <a class="button button-dark" href="/menu">Explore our menu</a>
+    </section>
+
+    <section class="story-section" id="story">
+      <div class="story-image">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85" alt="Warm Indian restaurant dining room">
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">Our kitchen</p>
+        <h2>Pure taste.<br><em>Desi dil se.</em></h2>
+        <p>Khandwa Tikkad Hotel brings together fresh ingredients, signature masalas and the warmth of family-style dining. Every plate is prepared hot and served with a smile.</p>
+        <div class="story-values">
+          <div><strong>Fresh</strong><span>Daily<br>ingredients</span></div>
+          <div><strong>30+</strong><span>Local<br>favourites</span></div>
+          <div><strong>100%</strong><span>Made<br>to order</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section">
+      <p class="eyebrow">NFC contactless menu</p>
+      <div class="nfc-card">
+        <div class="nfc-icon" aria-hidden="true">⌁</div>
+        <div>
+          <h3>Tap &amp; open our menu</h3>
+          <p id="nfc-status">No app needed. Hold your phone near the NFC tag at your table.</p>
+        </div>
+        <button class="button button-dark" type="button" id="nfc-write">Set up NFC Tag</button>
+      </div>
+    </section>
+
+    <section class="visit-section" id="visit">
+      <div class="visit-card">
+        <p class="eyebrow">Come dine with us</p>
+        <h2>Visit us in<br><em>Khandwa.</em></h2>
+        <address>
+          <strong>Khandwa Tikkad Hotel</strong><br>
+          Khandwa, Madhya Pradesh
+        </address>
+        <div class="hours">
+          <p><span>Monday — Friday</span><strong>11 AM — 11 PM</strong></p>
+          <p><span>Saturday — Sunday</span><strong>10 AM — 11:30 PM</strong></p>
+        </div>
+        <a class="button button-light" href="https://maps.google.com/maps?q=Khandwa%20Madhya%20Pradesh" target="_blank" rel="noreferrer">Get directions</a>
+      </div>
+
+      <div class="visit-image">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="Comfortable restaurant dining area">
+      </div>
+    </section>
+
+    <section class="reserve-section" id="reserve">
+      <div>
+        <p class="eyebrow">Table booking</p>
+        <h2>Hungry?<br><em>Save your seat.</em></h2>
+      </div>
+
+      <form class="reservation-form" id="reservation-form">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" required>
+        </label>
+        <label>
+          <span>Phone / WhatsApp</span>
+          <input type="tel" name="phone" placeholder="+91 00000 00000" required>
+        </label>
+        <div class="form-row">
+          <label>
+            <span>Date</span>
+            <input type="date" name="date" required>
+          </label>
+          <label>
+            <span>Time</span>
+            <select name="time" required>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="18:00">6:00 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="20:00">8:00 PM</option>
+              <option value="21:00">9:00 PM</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>
+            <span>Guests</span>
+            <select name="guests" required>
+              <option value="2">2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+              <option value="5">5 guests</option>
+              <option value="6">6 guests</option>
+              <option value="10">7+ guests</option>
+            </select>
+          </label>
+        </div>
+        <button class="button button-dark" type="submit">Request booking</button>
+        <p class="form-message" id="form-message" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">KTH</span><span>KHANDWA TIKKAD HOTEL</span></a>
+    <p>Khandwa, Madhya Pradesh</p>
+    <div class="socials"><a href="#">Instagram</a><a href="#visit">Directions</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

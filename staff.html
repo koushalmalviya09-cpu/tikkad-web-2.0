@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#31483a">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Staff Portal · Khandwa Tikkad Hotel</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="staff.css">
+</head>
+<body class="staff-body">
+  <main>
+    <section class="staff-login" id="login-panel">
+      <div class="staff-login-card">
+        <a class="brand" href="/"><span class="brand-mark">KTH</span><span>KHANDWA TIKKAD HOTEL</span></a>
+        <p class="eyebrow">Authorized staff only</p>
+        <h1>Staff portal</h1>
+        <form id="staff-login-form">
+          <label>
+            <span>Staff access code</span>
+            <input id="staff-code" type="password" autocomplete="current-password" placeholder="Enter access code" required>
+          </label>
+          <button class="button button-dark" type="submit">Open dashboard</button>
+          <p id="login-error" class="form-message" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="staff-dashboard" id="dashboard-panel" hidden>
+      <aside class="staff-sidebar">
+        <a class="brand" href="/"><span class="brand-mark">KTH</span></a>
+        <nav>
+          <span class="active">Bookings</span>
+        </nav>
+        <button id="logout-button" class="logout-button" type="button">Sign out</button>
+      </aside>
+
+      <div class="staff-content">
+        <header class="staff-header">
+          <div>
+            <p class="eyebrow">Staff dashboard</p>
+            <h2>Bookings</h2>
+          </div>
+          <div class="staff-actions">
+            <button id="refresh-button" class="button button-light-border" type="button">Refresh</button>
+            <span class="status-dot">● Private</span>
+          </div>
+        </header>
+        <p id="dashboard-message" class="staff-message" role="status" aria-live="polite"></p>
+
+        <div class="staff-stats">
+          <article><span>Total</span><strong id="total-count">0</strong></article>
+          <article><span>New</span><strong id="new-count">0</strong></article>
+          <article><span>Confirmed</span><strong id="confirmed-count">0</strong></article>
+          <article><span>Today's guests</span><strong id="today-count">0</strong></article>
+        </div>
+
+        <div class="booking-toolbar">
+          <input id="booking-search" type="search" placeholder="Search name or phone">
+          <select id="status-filter">
+            <option value="all">All statuses</option>
+            <option value="new">New</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div class="booking-table-wrap">
+          <table>
+            <thead>
+              <tr><th>Guest</th><th>Phone</th><th>Date &amp; time</th><th>Guests</th><th>Status</th><th>Received</th><th></th></tr>
+            </thead>
+            <tbody id="booking-rows"></tbody>
+          </table>
+          <p id="empty-state" hidden>No bookings found.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="staff.js"></script>
+</body>
+</html>
