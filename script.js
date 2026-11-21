@@ -28,8 +28,9 @@ const formMessage = document.querySelector('#form-message');
 reservationForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const submitButton = reservationForm.querySelector('button[type="submit"]');
+  const submitLabel = submitButton.querySelector('.button-label');
   submitButton.disabled = true;
-  submitButton.textContent = 'Sending...';
+  submitLabel.textContent = 'Sending...';
 
   const data = new FormData(reservationForm);
   const payload = {
@@ -62,7 +63,7 @@ reservationForm.addEventListener('submit', async (event) => {
     formMessage.textContent = error.message;
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = 'Request a table';
+    submitLabel.textContent = 'Request a table';
   }
 });
 

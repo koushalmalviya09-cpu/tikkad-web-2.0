@@ -1,14 +1,14 @@
 :root {
-  --cream: #f3efe6;
-  --paper: #fbf9f4;
-  --ink: #202a24;
-  --green: #263a31;
-  --green-light: #354c40;
-  --rust: #b65f43;
-  --rust-light: #e2a486;
-  --muted: #73776f;
-  --line: rgba(32, 42, 36, 0.15);
-  --shadow: 0 24px 70px rgba(32, 42, 36, 0.12);
+  --cream: #f2ecdf;
+  --paper: #fbf8f2;
+  --ink: #1e2922;
+  --green: #1e3027;
+  --green-light: #30463a;
+  --rust: #9c7846;
+  --rust-light: #d6bd90;
+  --muted: #737168;
+  --line: rgba(30, 41, 34, 0.13);
+  --shadow: 0 28px 80px rgba(30, 41, 34, 0.13);
 }
 
 * { box-sizing: border-box; }
@@ -20,10 +20,12 @@ body {
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+::selection { background: var(--rust-light); color: var(--ink); }
 img { display: block; width: 100%; }
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
 button { color: inherit; }
+:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 .site-header {
@@ -37,7 +39,7 @@ button { color: inherit; }
   justify-content: space-between;
   gap: 24px;
   border-bottom: 1px solid rgba(32, 42, 36, 0.08);
-  background: rgba(251, 249, 244, 0.95);
+  background: rgba(251, 248, 242, 0.96);
   backdrop-filter: blur(14px);
 }
 .brand { display: flex; align-items: center; gap: 12px; }
@@ -46,10 +48,11 @@ button { color: inherit; }
   height: 46px;
   display: grid;
   place-items: center;
-  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 50%;
   background: var(--green);
   color: white;
-  font-family: "Playfair Display", serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 13px;
   letter-spacing: 0.02em;
 }
@@ -60,7 +63,7 @@ button { color: inherit; }
 .main-nav > a:not(.nav-book):hover { color: var(--rust); }
 .nav-book { display: inline-flex; align-items: center; gap: 14px; padding: 13px 18px; border-radius: 5px; background: var(--green); color: white; font-size: 12px; font-weight: 600; transition: background 160ms ease, transform 160ms ease; }
 .nav-book:hover { transform: translateY(-1px); background: var(--green-light); }
-.nav-book span, .button span { font-size: 16px; }
+.nav-book span, .button > span[aria-hidden="true"] { font-size: 16px; }
 .menu-toggle { display: none; }
 
 .hero {
@@ -75,7 +78,7 @@ button { color: inherit; }
 .hero-copy { max-width: 580px; padding: 30px 0 20px; }
 .eyebrow { margin: 0 0 21px; display: flex; align-items: center; gap: 9px; color: var(--rust); font-size: 10px; font-weight: 700; letter-spacing: 0.19em; text-transform: uppercase; }
 .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rust); }
-h1, h2 { margin: 0; font-family: "Playfair Display", serif; font-weight: 500; line-height: 0.99; letter-spacing: -0.035em; }
+h1, h2 { margin: 0; font-family: "Cormorant Garamond", serif; font-weight: 600; line-height: 0.91; letter-spacing: -0.035em; }
 h1 { max-width: 650px; font-size: clamp(62px, 7.3vw, 104px); }
 h1 em, h2 em { color: var(--rust); font-weight: 500; }
 .hero-intro { max-width: 420px; margin: 27px 0 30px; color: #565e57; font-size: 15px; line-height: 1.85; }
@@ -95,7 +98,7 @@ h1 em, h2 em { color: var(--rust); font-weight: 500; }
 .hero-footnote { margin-top: 56px; display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .hero-footnote > span:first-child { color: var(--rust); font-weight: 700; }
 .hero-footnote-line { width: 54px; height: 1px; background: var(--rust); }
-.hero-visual { position: relative; min-height: 540px; overflow: hidden; border-radius: 7px; background: #d3c8b7; box-shadow: var(--shadow); }
+.hero-visual { position: relative; min-height: 540px; overflow: hidden; border: 1px solid rgba(156,120,70,.22); border-radius: 3px; background: #d3c8b7; box-shadow: var(--shadow); }
 .hero-visual img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 .hero-image-shade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 53%, rgba(19, 26, 21, .5)); }
 .hero-image-caption { position: absolute; right: 24px; bottom: 29px; left: 24px; display: flex; justify-content: space-between; gap: 15px; color: white; font-size: 9px; font-weight: 600; letter-spacing: 0.15em; }
@@ -103,7 +106,7 @@ h1 em, h2 em { color: var(--rust); font-weight: 500; }
 .hours-card-icon { width: 33px; height: 33px; display: grid; place-items: center; border-radius: 50%; background: #e9eee7; color: var(--green); font-size: 17px; }
 .hours-card > span:last-child { display: grid; gap: 4px; }
 .hours-card small { color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: 0.12em; }
-.hours-card strong { color: var(--green); font-family: "Playfair Display", serif; font-size: 16px; font-weight: 600; }
+.hours-card strong { color: var(--green); font-family: "Cormorant Garamond", serif; font-size: 20px; font-weight: 700; }
 
 .menu-promo {
   padding: 92px clamp(24px, 9vw, 132px);
@@ -111,7 +114,7 @@ h1 em, h2 em { color: var(--rust); font-weight: 500; }
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   align-items: center;
   gap: clamp(40px, 8vw, 120px);
-  background: var(--green);
+  background: linear-gradient(135deg, #1a2a22, #2c4034);
   color: white;
 }
 .menu-promo-copy { position: relative; padding: 14px 0 50px; }
@@ -122,43 +125,43 @@ h1 em, h2 em { color: var(--rust); font-weight: 500; }
 .menu-promo-copy > p:not(.eyebrow) { max-width: 400px; margin: 22px 0 26px; color: rgba(255,255,255,.72); font-size: 14px; line-height: 1.8; }
 .menu-promo-copy .button { margin-top: 2px; }
 .menu-promo-index { position: absolute; bottom: 0; left: 0; color: rgba(255,255,255,.5); font-size: 9px; font-weight: 600; letter-spacing: 0.16em; }
-.menu-promo-visual { position: relative; min-height: 390px; overflow: hidden; border-radius: 6px; background: #44564b; }
+.menu-promo-visual { position: relative; min-height: 390px; overflow: hidden; border: 1px solid rgba(214,189,144,.28); border-radius: 3px; background: #44564b; box-shadow: var(--shadow); }
 .menu-promo-visual img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 .menu-photo-label { position: absolute; right: 16px; bottom: 16px; padding: 10px 12px; border-radius: 3px; background: var(--paper); color: var(--green); font-size: 8px; font-weight: 700; letter-spacing: 0.16em; }
 
 .story-section { min-height: 610px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--paper); }
 .story-image { position: relative; min-height: 610px; overflow: hidden; background: #d6cec1; }
 .story-image > img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
-.story-image-note { position: absolute; right: 25px; bottom: 25px; display: flex; align-items: center; gap: 13px; padding: 15px 19px; border-radius: 4px; background: var(--paper); box-shadow: 0 10px 32px rgba(0,0,0,.13); }
+.story-image-note { position: absolute; right: 25px; bottom: 25px; display: flex; align-items: center; gap: 13px; padding: 15px 19px; border: 1px solid rgba(156,120,70,.22); border-radius: 3px; background: var(--paper); box-shadow: 0 10px 32px rgba(0,0,0,.13); }
 .story-image-note > span:first-child { color: var(--rust); font-size: 22px; }
-.story-image-note > span:last-child { font-family: "Playfair Display", serif; font-size: 15px; line-height: 1.35; }
+.story-image-note > span:last-child { font-family: "Cormorant Garamond", serif; font-size: 19px; font-weight: 600; line-height: 1.15; }
 .story-copy { padding: 94px clamp(35px, 8vw, 116px); display: flex; flex-direction: column; justify-content: center; }
 .story-copy h2 { font-size: clamp(46px, 5.1vw, 70px); }
 .story-description { max-width: 470px; margin: 24px 0 22px; color: #60665f; font-size: 14px; line-height: 1.85; }
 .story-link { align-self: flex-start; }
 .story-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin-top: 39px; padding-top: 22px; border-top: 1px solid var(--line); }
 .story-values div { display: flex; flex-direction: column; gap: 6px; }
-.story-values strong { color: var(--green); font-family: "Playfair Display", serif; font-size: 24px; font-weight: 500; }
+.story-values strong { color: var(--green); font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 600; }
 .story-values span { color: var(--muted); font-size: 9px; line-height: 1.5; letter-spacing: 0.07em; text-transform: uppercase; }
 
 .quote-section { padding: 91px clamp(24px, 10vw, 144px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(320px, .7fr); align-items: center; gap: clamp(36px, 8vw, 115px); background: var(--cream); }
 .digital-menu-intro h2 { font-size: clamp(45px, 5vw, 66px); }
 .digital-menu-intro > p:not(.eyebrow) { max-width: 390px; margin: 20px 0 20px; color: #60665f; font-size: 14px; line-height: 1.8; }
-.nfc-card { min-height: 390px; padding: 38px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border-radius: 6px; background: var(--green); color: white; box-shadow: var(--shadow); }
+.nfc-card { min-height: 390px; padding: 38px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border: 1px solid rgba(214,189,144,.22); border-radius: 3px; background: linear-gradient(145deg, #1a2a22, #2c4034); color: white; box-shadow: var(--shadow); }
 .nfc-orbit { width: 60px; height: 60px; margin-bottom: 25px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; color: var(--rust-light); font-size: 31px; }
 .nfc-overline { margin: 0 0 12px; color: var(--rust-light); font-size: 9px; font-weight: 700; letter-spacing: 0.17em; }
-.nfc-card h3 { margin: 0; font-family: "Playfair Display", serif; font-size: 39px; font-weight: 500; line-height: 1.05; }
+.nfc-card h3 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 48px; font-weight: 600; line-height: .9; }
 .nfc-card > p:not(.nfc-overline) { max-width: 280px; margin: 14px 0 22px; color: rgba(255,255,255,.7); font-size: 12px; line-height: 1.65; }
 
 .visit-section { min-height: 590px; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
-.visit-card { padding: 76px clamp(30px, 7vw, 100px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; background: #30483b; color: white; }
+.visit-card { padding: 76px clamp(30px, 7vw, 100px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; background: linear-gradient(145deg, #1e3027, #30463a); color: white; }
 .visit-card .eyebrow { color: var(--rust-light); }
 .visit-card .eyebrow-dot { background: var(--rust-light); }
 .visit-card h2 { font-size: clamp(48px, 5.2vw, 72px); }
 .visit-card h2 em { color: var(--rust-light); }
 .visit-intro { margin: 19px 0 22px; color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.7; }
 .visit-card address { margin: 0 0 21px; font-size: 13px; font-style: normal; line-height: 1.8; }
-.visit-card address strong { font-family: "Playfair Display", serif; font-size: 17px; font-weight: 500; }
+.visit-card address strong { font-family: "Cormorant Garamond", serif; font-size: 22px; font-weight: 600; }
 .hours { width: 100%; max-width: 390px; margin: 0 0 21px; }
 .hours p { margin: 0; padding: 12px 0; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid rgba(255,255,255,.19); font-size: 10px; }
 .hours p span { color: rgba(255,255,255,.63); font-size: 8px; font-weight: 600; letter-spacing: 0.09em; }
@@ -173,16 +176,17 @@ h1 em, h2 em { color: var(--rust); font-weight: 500; }
 .reserve-copy > p:not(.eyebrow) { max-width: 390px; margin: 24px 0; color: #62685f; font-size: 14px; line-height: 1.8; }
 .reserve-note { max-width: 380px; padding-top: 17px; display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--line); color: #62685f; font-size: 11px; line-height: 1.5; }
 .reserve-note span:first-child { color: var(--rust); font-size: 20px; }
-.reservation-form { padding: 32px; display: grid; gap: 18px; border: 1px solid rgba(32,42,36,.07); border-radius: 6px; background: var(--paper); box-shadow: 0 18px 48px rgba(32,42,36,.08); }
+.reservation-form { padding: 34px; display: grid; gap: 19px; border: 1px solid rgba(156,120,70,.24); border-radius: 3px; background: var(--paper); box-shadow: 0 22px 58px rgba(30,41,34,.1); }
 .form-heading { margin-bottom: 3px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.form-heading strong { font-family: "Playfair Display", serif; font-size: 25px; font-weight: 500; }
+.form-heading strong { font-family: "Cormorant Garamond", serif; font-size: 31px; font-weight: 600; }
 .form-heading span { color: var(--muted); font-size: 9px; }
 .reservation-form label { display: grid; gap: 7px; color: #5f665e; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.reservation-form input, .reservation-form select { width: 100%; height: 45px; padding: 0 12px; border: 1px solid rgba(32,42,36,.15); border-radius: 3px; outline: none; background: white; color: var(--ink); font-size: 12px; letter-spacing: 0; text-transform: none; transition: border-color 160ms ease, box-shadow 160ms ease; }
+.reservation-form input, .reservation-form select { width: 100%; height: 47px; padding: 0 13px; border: 1px solid rgba(30,41,34,.16); border-radius: 2px; outline: none; background: #fffdf9; color: var(--ink); font-size: 12px; letter-spacing: 0; text-transform: none; transition: border-color 160ms ease, box-shadow 160ms ease; }
 .reservation-form input::placeholder { color: #a0a199; }
-.reservation-form input:focus, .reservation-form select:focus { border-color: var(--green-light); box-shadow: 0 0 0 3px rgba(53,76,64,.1); }
+.reservation-form input:focus, .reservation-form select:focus { border-color: var(--rust); box-shadow: 0 0 0 3px rgba(156,120,70,.12); }
+.reservation-form input:focus-visible, .reservation-form select:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
 .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.reservation-form .button { margin-top: 4px; justify-self: start; }
+.reservation-form .button { width: 100%; min-height: 54px; margin-top: 4px; justify-self: stretch; letter-spacing: .07em; text-transform: uppercase; }
 .form-message { min-height: 20px; margin: 0; color: var(--green); font-size: 12px; line-height: 1.5; }
 
 footer { min-height: 112px; padding: 24px clamp(24px, 6vw, 88px); display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #1d2c24; color: white; }
@@ -199,7 +203,7 @@ footer > p { color: rgba(255,255,255,.6); font-size: 11px; }
   .menu-toggle span:not(.sr-only) { width: 23px; height: 1.5px; display: block; background: var(--ink); transition: transform 180ms ease; }
   .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.75px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
-  .main-nav { position: absolute; top: 100%; right: 0; left: 0; display: none; padding: 22px 24px 26px; align-items: stretch; flex-direction: column; gap: 20px; border-top: 1px solid var(--line); background: var(--paper); box-shadow: 0 14px 25px rgba(32,42,36,.08); }
+  .main-nav { position: absolute; top: 100%; right: 0; left: 0; display: none; padding: 22px 24px 26px; align-items: stretch; flex-direction: column; gap: 20px; border-top: 1px solid var(--line); background: var(--paper); box-shadow: 0 14px 25px rgba(30,41,34,.08); }
   .main-nav.open { display: flex; }
   .nav-book { justify-content: center; }
   .hero { min-height: auto; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -254,7 +258,7 @@ footer > p { color: rgba(255,255,255,.6); font-size: 11px; }
   .reserve-copy h2 { font-size: 51px; }
   .reservation-form { padding: 23px 19px; gap: 15px; }
   .form-row { grid-template-columns: 1fr; gap: 15px; }
-  .form-heading strong { font-size: 22px; }
+  .form-heading strong { font-size: 27px; }
   footer { padding: 27px 22px; align-items: flex-start; flex-direction: column; gap: 16px; }
   footer > p { margin: 0; }
   .socials { gap: 15px; }
