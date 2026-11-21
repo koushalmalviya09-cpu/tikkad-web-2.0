@@ -2,6 +2,7 @@ services:
   - type: web
     name: khandwa-tikkad-hotel
     runtime: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
@@ -10,10 +11,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_PATH
-        value: /var/data/hotel.db
+        value: /tmp/hotel.db
       - key: SESSION_COOKIE_SECURE
         value: "true"
-    disk:
-      name: hotel-data
-      mountPath: /var/data
-      sizeGB: 1
