@@ -25,7 +25,7 @@ The application creates and initializes `hotel.db` on first run. The database is
 
 ## Render deployment
 
-The included `render.yaml` configures a Python web service, generated secrets, and a persistent disk at `/var/data`. Connect this repository to Render and deploy using the Blueprint. The persistent disk requires a Render plan that supports disks.
+The included `render.yaml` configures a free Python web service and generated secrets. Its SQLite database is stored at `/tmp/hotel.db` on Render's ephemeral filesystem, so bookings can be lost whenever the service restarts or redeploys. This free configuration is not suitable for durable production bookings. Use a paid Render service with a persistent disk or move to a managed database before relying on booking data.
 
 ## Routes
 
