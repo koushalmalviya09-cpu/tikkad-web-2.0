@@ -62,7 +62,7 @@ reservationForm.addEventListener('submit', async (event) => {
     formMessage.textContent = error.message;
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = 'Request booking';
+    submitButton.textContent = 'Request a table';
   }
 });
 
