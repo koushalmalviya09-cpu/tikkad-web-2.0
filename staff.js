@@ -1,5 +1,6 @@
 let csrfToken = '';
 let bookings = [];
+let orders = [];
 
 const loginPanel = document.querySelector('#login-panel');
 const dashboardPanel = document.querySelector('#dashboard-panel');
@@ -35,7 +36,17 @@ async function loadBookings() {
   renderBookings();
 }
 
-async function reportMutationError(error) {
+async function loadOrders() {
+  const data = await requestJson('/api/staff/orders');
+  orders = data.orders;
+  renderOrders();
+}
+
+async function loadDashboardData() {
+  await Promise.all([loadBookings(), loadOrders()]);
+}
+
+async function reportMutationError(error, reload = loadDashboardData) {
   if (error.status === 401) {
     showLogin();
     loginError.textContent = 'Your staff session expired. Please sign in again.';
@@ -43,7 +54,7 @@ async function reportMutationError(error) {
   }
   dashboardMessage.textContent = error.message;
   try {
-    await loadBookings();
+    await reload();
   } catch (refreshError) {
     if (refreshError.status === 401) showLogin();
     dashboardMessage.textContent = `${error.message} ${refreshError.message}`;
@@ -64,7 +75,7 @@ loginForm.addEventListener('submit', async (event) => {
       body: JSON.stringify({ code })
     });
     csrfToken = data.csrfToken;
-    await loadBookings();
+    await loadDashboardData();
     showDashboard();
   } catch (error) {
     showLogin();
@@ -142,10 +153,86 @@ function renderBookings() {
   document.querySelector('#empty-state').hidden = filtered.length !== 0;
 }
 
+function formatCurrency(paise) {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }).format(paise / 100);
+}
+
+function renderOrders() {
+  const search = document.querySelector('#order-search').value.trim().toLowerCase();
+  const status = document.querySelector('#order-status-filter').value;
+  const filtered = orders.filter((order) => {
+    const matchesSearch = !search ||
+      order.customer_name.toLowerCase().includes(search) ||
+      order.phone.toLowerCase().includes(search) ||
+      String(order.id).includes(search);
+    return matchesSearch && (status === 'all' || order.order_status === status);
+  });
+
+  document.querySelector('#order-total-count').textContent = orders.length;
+  document.querySelector('#order-pending-count').textContent = orders.filter((order) => order.payment_status === 'pending').length;
+  document.querySelector('#order-new-count').textContent = orders.filter((order) => order.payment_status === 'paid' && order.order_status === 'new').length;
+  document.querySelector('#order-preparing-count').textContent = orders.filter((order) => order.order_status === 'preparing').length;
+
+  const rows = document.querySelector('#order-rows');
+  rows.innerHTML = filtered.map((order) => {
+    const phoneLink = order.phone.replace(/[^\d+]/g, '');
+    const items = order.items.map((item) =>
+      `<li>${escapeHtml(item.item_name)} × ${item.quantity}</li>`
+    ).join('');
+    const fulfillment = order.fulfillment_type === 'dine_in' ? 'Dine-in' : 'Pickup';
+    const table = order.fulfillment_type === 'dine_in' && order.table_number
+      ? `<br>Table ${escapeHtml(order.table_number)}`
+      : '';
+    const notes = order.notes ? `<br><small>${escapeHtml(order.notes)}</small>` : '';
+    const statuses = ['new', 'accepted', 'preparing', 'ready', 'completed', 'cancelled'];
+    const statusOptions = statuses.map((value) =>
+      `<option value="${value}" ${order.order_status === value ? 'selected' : ''}>${value[0].toUpperCase()}${value.slice(1)}</option>`
+    ).join('');
+    const isPaid = order.payment_status === 'paid';
+    return `
+      <tr>
+        <td><strong>#${order.id}</strong></td>
+        <td><strong>${escapeHtml(order.customer_name)}</strong>${notes}</td>
+        <td><a href="tel:${escapeHtml(phoneLink)}">${escapeHtml(order.phone)}</a></td>
+        <td class="order-fulfillment">${fulfillment}${table}</td>
+        <td><ul class="order-item-list">${items}</ul></td>
+        <td>${formatCurrency(order.total_paise)}</td>
+        <td><span class="payment-badge ${escapeHtml(order.payment_status)}">${escapeHtml(order.payment_status)}</span></td>
+        <td>
+          ${isPaid
+            ? `<select class="order-status-select status-select" data-id="${order.id}" aria-label="Order status">${statusOptions}</select>`
+            : `<span class="payment-badge pending">${escapeHtml(order.order_status.replace('_', ' '))}</span>`}
+        </td>
+        <td>${escapeHtml(formatReceived(order.created_at))}</td>
+      </tr>
+    `;
+  }).join('');
+  document.querySelector('#orders-empty-state').hidden = filtered.length !== 0;
+}
+
+document.querySelectorAll('[data-view]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const selectedView = button.dataset.view;
+    document.querySelector('#dashboard-title').textContent = selectedView === 'orders-view' ? 'Orders' : 'Bookings';
+    document.querySelectorAll('.staff-view').forEach((view) => {
+      view.hidden = view.id !== selectedView;
+    });
+    document.querySelectorAll('[data-view]').forEach((tab) => {
+      const active = tab.dataset.view === selectedView;
+      tab.classList.toggle('active', active);
+      if (tab.hasAttribute('aria-pressed')) tab.setAttribute('aria-pressed', String(active));
+    });
+  });
+});
+
 async function refreshBookings() {
   dashboardMessage.textContent = '';
   try {
-    await loadBookings();
+    await loadDashboardData();
   } catch (error) {
     if (error.status === 401) {
       showLogin();
@@ -158,6 +245,8 @@ async function refreshBookings() {
 
 document.querySelector('#booking-search').addEventListener('input', renderBookings);
 document.querySelector('#status-filter').addEventListener('change', renderBookings);
+document.querySelector('#order-search').addEventListener('input', renderOrders);
+document.querySelector('#order-status-filter').addEventListener('change', renderOrders);
 document.querySelector('#refresh-button').addEventListener('click', refreshBookings);
 
 document.querySelector('#booking-rows').addEventListener('change', async (event) => {
@@ -171,7 +260,7 @@ document.querySelector('#booking-rows').addEventListener('change', async (event)
     });
     await loadBookings();
   } catch (error) {
-    await reportMutationError(error);
+    await reportMutationError(error, loadBookings);
   }
 });
 
@@ -186,7 +275,22 @@ document.querySelector('#booking-rows').addEventListener('click', async (event) 
     });
     await loadBookings();
   } catch (error) {
-    await reportMutationError(error);
+    await reportMutationError(error, loadBookings);
+  }
+});
+
+document.querySelector('#order-rows').addEventListener('change', async (event) => {
+  if (!event.target.matches('.order-status-select')) return;
+  dashboardMessage.textContent = '';
+  try {
+    await requestJson(`/api/staff/orders/${event.target.dataset.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+      body: JSON.stringify({ status: event.target.value })
+    });
+    await loadOrders();
+  } catch (error) {
+    await reportMutationError(error, loadOrders);
   }
 });
 
@@ -209,7 +313,7 @@ async function restoreStaffSession() {
   try {
     const data = await requestJson('/api/staff/session');
     csrfToken = data.csrfToken;
-    await loadBookings();
+    await loadDashboardData();
     showDashboard();
   } catch (error) {
     showLogin();

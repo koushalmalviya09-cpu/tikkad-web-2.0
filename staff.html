@@ -31,7 +31,8 @@
       <aside class="staff-sidebar">
         <a class="brand" href="/"><span class="brand-mark">KTH</span></a>
         <nav>
-          <span class="active">Bookings</span>
+          <button class="staff-nav-button active" type="button" data-view="bookings-view">Bookings</button>
+          <button class="staff-nav-button" type="button" data-view="orders-view">Orders</button>
         </nav>
         <button id="logout-button" class="logout-button" type="button">Sign out</button>
       </aside>
@@ -40,41 +41,80 @@
         <header class="staff-header">
           <div>
             <p class="eyebrow">Staff dashboard</p>
-            <h2>Bookings</h2>
+            <h2 id="dashboard-title">Bookings</h2>
           </div>
           <div class="staff-actions">
             <button id="refresh-button" class="button button-light-border" type="button">Refresh</button>
             <span class="status-dot">● Private</span>
           </div>
         </header>
+        <nav class="dashboard-tabs" aria-label="Staff dashboard sections">
+          <button class="dashboard-tab active" type="button" data-view="bookings-view" aria-pressed="true">Bookings</button>
+          <button class="dashboard-tab" type="button" data-view="orders-view" aria-pressed="false">Orders</button>
+        </nav>
         <p id="dashboard-message" class="staff-message" role="status" aria-live="polite"></p>
 
-        <div class="staff-stats">
-          <article><span>Total</span><strong id="total-count">0</strong></article>
-          <article><span>New</span><strong id="new-count">0</strong></article>
-          <article><span>Confirmed</span><strong id="confirmed-count">0</strong></article>
-          <article><span>Today's guests</span><strong id="today-count">0</strong></article>
-        </div>
+        <section id="bookings-view" class="staff-view">
+          <div class="staff-stats">
+            <article><span>Total</span><strong id="total-count">0</strong></article>
+            <article><span>New</span><strong id="new-count">0</strong></article>
+            <article><span>Confirmed</span><strong id="confirmed-count">0</strong></article>
+            <article><span>Today's guests</span><strong id="today-count">0</strong></article>
+          </div>
 
-        <div class="booking-toolbar">
-          <input id="booking-search" type="search" placeholder="Search name or phone">
-          <select id="status-filter">
-            <option value="all">All statuses</option>
-            <option value="new">New</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
+          <div class="booking-toolbar">
+            <input id="booking-search" type="search" placeholder="Search name or phone">
+            <select id="status-filter">
+              <option value="all">All statuses</option>
+              <option value="new">New</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
 
-        <div class="booking-table-wrap">
-          <table>
-            <thead>
-              <tr><th>Guest</th><th>Phone</th><th>Date &amp; time</th><th>Guests</th><th>Status</th><th>Received</th><th></th></tr>
-            </thead>
-            <tbody id="booking-rows"></tbody>
-          </table>
-          <p id="empty-state" hidden>No bookings found.</p>
-        </div>
+          <div class="booking-table-wrap">
+            <table>
+              <thead>
+                <tr><th>Guest</th><th>Phone</th><th>Date &amp; time</th><th>Guests</th><th>Status</th><th>Received</th><th></th></tr>
+              </thead>
+              <tbody id="booking-rows"></tbody>
+            </table>
+            <p id="empty-state" hidden>No bookings found.</p>
+          </div>
+        </section>
+
+        <section id="orders-view" class="staff-view" hidden>
+          <div class="staff-stats">
+            <article><span>Total orders</span><strong id="order-total-count">0</strong></article>
+            <article><span>Awaiting payment</span><strong id="order-pending-count">0</strong></article>
+            <article><span>New paid orders</span><strong id="order-new-count">0</strong></article>
+            <article><span>Preparing</span><strong id="order-preparing-count">0</strong></article>
+          </div>
+          <div class="booking-toolbar">
+            <input id="order-search" type="search" placeholder="Search customer or phone">
+            <select id="order-status-filter">
+              <option value="all">All order statuses</option>
+              <option value="awaiting_payment">Awaiting payment</option>
+              <option value="payment_failed">Payment failed</option>
+              <option value="new">New</option>
+              <option value="accepted">Accepted</option>
+              <option value="preparing">Preparing</option>
+              <option value="ready">Ready</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="booking-table-wrap">
+            <table class="orders-table">
+              <thead>
+                <tr><th>Order</th><th>Customer</th><th>Phone</th><th>Type / table</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Received</th></tr>
+              </thead>
+              <tbody id="order-rows"></tbody>
+            </table>
+            <p id="orders-empty-state" hidden>No orders found.</p>
+          </div>
+          <p class="orders-refund-note">Refunds for paid orders must be processed separately in your Razorpay account.</p>
+        </section>
       </div>
     </section>
   </main>
